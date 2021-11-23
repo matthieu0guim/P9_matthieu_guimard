@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from MVP import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login', views.log_page),
+    path('register', views.sign_in_page),
+    path('flux', views.flux_page),
+    path('subscription', views.subscription_page),
+    path('ticket_creation', views.ticket_creation),
+    path("review_creation", views.review_creation),
+    path("own_posts", views.own_posts)
 ]
