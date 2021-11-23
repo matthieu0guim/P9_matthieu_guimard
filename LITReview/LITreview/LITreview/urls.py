@@ -1,4 +1,4 @@
-"""merchex URL Configuration
+"""LITreview URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -15,14 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from listings import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('bands/', views.band_list, name='band-list'),
-    path('bands/<int:band_id>/', views.band_detail, name='band-detail'),
-    path('about-us/', views.about),
-    path('listings/', views.listings, name='listing-list'),
-    path('listings/<int:list_id>', views.list_detail, name='list-detail'),
-    path('contact us/',views.contact_us )
 ]
