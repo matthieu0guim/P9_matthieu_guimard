@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from listings.models import Band, Listing
 from listings.form import ContactUsForm, BandForm, ListingForm
 from django.core.mail import send_mail
+from django.contrib import messages
+
 
 def band_list(request):
     bands = Band.objects.all()
@@ -24,11 +26,32 @@ def band_create(request):
             return redirect('band-created')
     else:
         form = BandForm()
-    
+
     return render(request, 'listings/band_create.html', {'form': form})
 
 def band_creation_confirmation(request):
     return render(request, 'listings/band_creation_confirmation.html')
+
+def band_change(request, band_id):
+    band = Band.objects.get(id = band_id)
+    if request.method == 'POST':
+        form = BandForm(request.POST, instance=band)
+        if form.is_valid():
+            form.save()
+            return redirect('band-list')
+    else:
+        form = BandForm(instance=band)
+
+    return render(request, 'listings/band_change.html', {'form': form})
+
+def band_delete(request, band_id):
+    band = Band.objects.get(id=band_id)
+    if request.method == 'POST':
+        band.delete()
+        messages.add_message(request, messages.INFO, 'Le groupe a bien été supprimé.')
+        return redirect('band-list')
+
+    return render(request, 'listings/band_delete.html', {'band': band})
 
 def about(request):
     return render(request, 'listings/about.html')
@@ -58,6 +81,24 @@ def create_new_listing(request):
 
 def listing_creation_confirmation(request):
     return render(request, 'Listings/listing_creation_confirmation.html')
+
+def listing_change(request, list_id):
+    listing = Listing.objects.get(id=list_id)
+    if request.method == 'POST':
+        form = ListingForm(request.POST, instance=listing)
+        if form.is_valid():
+            form.save()
+            return redirect('listing-list')
+    else:
+        form = ListingForm(instance=listing)
+    return render(request, 'listings/listing_change.html', {'form': form})
+
+def listing_delete(request, list_id):
+    listing = Listing.objects.get(id=list_id)
+    if request.method == 'POST':
+        listing.delete()
+        return redirect('listing-list')
+    return render(request, 'listings/listing_delete.html', {'listing': listing})
 
 def contact_us(request):
     

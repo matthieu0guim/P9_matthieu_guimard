@@ -23,11 +23,15 @@ urlpatterns = [
     path('bands/<int:band_id>/', views.band_detail, name='band-detail'),
     path('bands/add/', views.band_create, name='band-create'),
     path('bands/band-creation-confirmation/', views.band_creation_confirmation, name='band-created'),
+    path('bands/<int:band_id>/delete/', views.band_delete, name='band-delete'),
     path('about-us/', views.about, name='about'),
     path('listings/', views.listings, name='listing-list'),
     path('listings/<int:list_id>', views.list_detail, name='list-detail'),
     path('listings/create_new_listing', views.create_new_listing, name='list-create'),
     path('listings/listing_creation_confirmation', views.listing_creation_confirmation, name='list-created'),
+    path('listings/<int:list_id>/change', views.listing_change, name='listing-change'),
+    path('listings/<int:list_id>/delete', views.listing_delete, name="listing-delete"),
     path('contact us/',views.contact_us , name='contact'),
-    path('mail-confirmation/', views.email_confirmation, name='email-sent')
-]
+    path('mail-confirmation/', views.email_confirmation, name='email-sent'),
+    path('bands/<int:band_id>/change', views.band_change, name='band-change')
+    ]

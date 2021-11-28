@@ -14,5 +14,5 @@
 </ul>
 
 <p> {{ band.biography }}</p>
-
-{% endblock %} 
+<a href="{% url 'listing-change' list.id %}">Éditer</a> - <a href="{% url 'listing-delete' list.id %}">Supprimer</a>
+{% endblock %}
