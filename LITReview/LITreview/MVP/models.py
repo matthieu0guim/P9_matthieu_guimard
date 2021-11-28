@@ -16,6 +16,7 @@ class Ticket(models.Model):
     time_created = models.fields.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+
 class Review(models.Model):
 
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
@@ -24,6 +25,7 @@ class Review(models.Model):
     headline = models.fields.CharField(max_length=128)
     body = models.fields.TextField(max_length=8192, blank=True)
     time_created = models.fields.DateTimeField(auto_now_add=True)
+
 
 class UserFollows(models.Model):
 
