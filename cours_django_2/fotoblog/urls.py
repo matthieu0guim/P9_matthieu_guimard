@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeDoneView, PasswordChangeView, PasswordChangeView
 
 import authentification.views # comme il y a plusieurs apps, il va ya voir plusieurs fichier views. Il vaut donc mieux garder le chemin complet
 import blog.views
@@ -22,6 +23,12 @@ import blog.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', authentification.views.login_page, name="login"),
-    path('logout/', authentification.views.logout_user, name='logout'),
+    path('password_change', PasswordChangeView.as_view(), name='password-change'),
+    path('password_changed', PasswordChangeDoneView.as_view(
+        template_name='blog/home.html'),
+        name='password_change_done'),
+    # path('logout/', authentification.views.logout_user, name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('register', authentification.views.signup_page, name="signup"),
     path('blog/', blog.views.home, name="home"),
 ]

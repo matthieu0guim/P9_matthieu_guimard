@@ -1,7 +1,11 @@
-from django.shortcuts import redirect, render
+from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
+from django.views.generic import View
 
-from authentification.forms import LoginForm
+
+from authentification.forms import LoginForm, SignupForm
 
 
 def logout_user(request):
@@ -25,3 +29,16 @@ def login_page(request):
             message = "Identifiants invalides!"
 
     return render(request, 'authentification/login.html', context={'form': form, 'message': message})
+
+def signup_page(request):
+    form = SignupForm()
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(settings.LOGIN_REDIRECT_URL)
+    return render(request, 'authentification/signup.html', context={"form": form})
+    
+
+ 
