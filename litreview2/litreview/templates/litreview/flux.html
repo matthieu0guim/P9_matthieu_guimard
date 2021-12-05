@@ -1,4 +1,15 @@
 {% extends 'litreview/base.html' %} 
 {% block content %}
-    <p>Vous êtes connecté</p>
+    <p>Page flux en cours de construction</p>
+    <div id="creation">
+        <a href="{% url 'ticket-creation' %}">
+            <button id="ticketRequest" class="button">Demander une critique</button>
+        </a>
+
+        <a href="{% url 'review-creation' %}">
+            <button id="ticketCreation" class="button">Créer une critique</button>
+        </a>
+        
+    </div>
+    
 {% endblock content %}

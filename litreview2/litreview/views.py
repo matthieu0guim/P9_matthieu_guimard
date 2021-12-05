@@ -36,7 +36,7 @@ def ticket_creation(request): # will handle ticket modification as one with an i
 def review_creation(request): # will handle review modification as one with an id already attributed
     return render(
         request,
-        "litreview/review_craetion.html"
+        "litreview/review_creation.html"
     )
 
 

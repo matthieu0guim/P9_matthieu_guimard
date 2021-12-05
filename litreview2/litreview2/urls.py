@@ -25,8 +25,8 @@ urlpatterns = [
     path('register', authentication.views.signup_page, name="signup"),
     path('logout/', authentication.views.logout_user, name='logout'),
     path('flux', views.flux_page, name="flux"),
-    path('subscription', views.subscription_page),
-    path('ticket_creation', views.ticket_creation),
-    path("review_creation", views.review_creation),
-    path("own_posts", views.own_posts),
+    path('subscription', views.subscription_page, name='subscribes'),
+    path('ticket_creation', views.ticket_creation, name="ticket-creation"),
+    path("review_creation", views.review_creation, name="review-creation"),
+    path("own_posts", views.own_posts, name='posts'),
 ]
