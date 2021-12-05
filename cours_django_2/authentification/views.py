@@ -5,8 +5,9 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 
 
-from authentification.forms import LoginForm, SignupForm
+from authentification.forms import LoginForm, SignupForm, UpdateProfilPhotoForm
 
+from . import forms
 
 def logout_user(request):
     logout(request)
@@ -41,4 +42,23 @@ def signup_page(request):
     return render(request, 'authentification/signup.html', context={"form": form})
     
 
+def upload_profile_photo(request):
+    form = forms.UpdateProfilPhotoForm(instance=request.user)
+    if request.method == 'POST':
+        form = forms.UpdateProfilPhotoForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    return render(request, 'authentification/update_profile_picture.html', context={'form': form})
+    # instance = request.user
+    # new_photo = forms.UpdateProfilPhotoForm()
+    # if request.method == 'POST':
+    #     new_photo = UpdateProfilPhotoForm(request.POST, request.FILES)
+    #     instance.profile_photo = new_photo
+    #     photo = new_photo.save(commit=False)
+    #     photo.save()
+    #     return redirect('home')
+
+    
+    # return render(request, 'authentification/update_profile_picture.html', context={'form': new_photo})
  
