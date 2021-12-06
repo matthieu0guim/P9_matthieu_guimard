@@ -9,7 +9,7 @@ from authentication.models import User
 
 
 class Ticket(models.Model):
-
+    identity = models.fields.CharField(max_length=100, default="ticket")
     title = models.fields.CharField(max_length=128)
     description = models.fields.CharField(max_length=2048)
     image = models.ImageField(null=True, blank=True)
@@ -19,6 +19,20 @@ class Ticket(models.Model):
 
 class Review(models.Model):
 
+    # ONE_STAR ="one"
+    # TWO_STAR ="two"
+    # THREE_STAR ="three"
+    # FOUR_STAR ="four"
+    # FIVE_STAR ="five"
+
+    # RATING_CHOICES = (
+    #     (ONE_STAR, 1), 
+    #     (TWO_STAR, 2),
+    #     (THREE_STAR, 3),
+    #     (FOUR_STAR, 4),
+    #     (FIVE_STAR, 5),
+    # )
+    identity = models.fields.CharField(max_length=100, default="review")
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     rating = PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     user = models.ForeignKey(User, on_delete=models.CASCADE)

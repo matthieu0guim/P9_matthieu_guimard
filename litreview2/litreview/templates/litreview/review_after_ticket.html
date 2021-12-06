@@ -1,0 +1,28 @@
+{% extends 'litreview/base.html' %} 
+{% block content %}
+    <p>Page création de critique après ticket en cours de construction</p>
+    <h2>Créer une critique</h2>
+    <div class="ticketRecap">
+        <p>Vous êtes en train de poster en réponse à:</p>
+        <div class="ticket ticketBox">
+            <div class="ticketHeader">
+                <p>{{ ticket.user }} a demandé une critique </p>
+                <p>{{ ticket.time_created }}</p>
+            </div>
+            
+            <p>  {{ ticket.title }}</p>
+            <p>  {{ ticket.description }}</p>
+            <img src="{{ ticket.image.url }}">
+        </div>
+        
+    </div>
+    
+    <div class="review">
+        <form method='POST' enctype="multipart/form-data">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit">Créer le ticket</button>
+        </form>
+    </div>
+    
+{% endblock content %}

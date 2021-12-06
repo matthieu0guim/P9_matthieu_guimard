@@ -11,5 +11,43 @@
         </a>
         
     </div>
+    {% for item in flux %}
+        {% if item.identity == 'ticket' %}
+            <div class="ticket">
+                <div class="ticketHeader">
+                    <p>{{ item.user }} a demandé une critique </p>
+                    <p>{{ item.time_created }}</p>
+                </div>
+                
+                <p>  {{ item.title }}</p>
+                <p>  {{ item.description }}</p>
+                <img src="{{ item.image.url }}">
+                <a href="{% url 'review-after-ticket' item.id %}">
+                    <button type="submit" class="button reviewButton">Créer une critique</button>
+                </a>
+            </div>
+        {% endif %}
+        {% if item.identity == 'review' %} 
+            <div class="review">
+                <div class="reviewHeader">
+                    <p>{{ item.user }} a publié une critique. </p>
+                    <p>{{ item.time_created }}</p>
+                </div>
+                
+                <h3> {{ item.headline }}</h3>
+                <p>  {{ item.rating }}</p>
+                <div class="ticket">
+                    <div class="ticketHeader">
+                        <p>Ticket - {{ item.ticket.user }} </p>
+                    </div>
+                    
+                    <p>  {{ item.ticket.title }}</p>
+                    <img src="{{ item.ticket.image.url }}">
+                </div>
+            </div>
+        {% endif %}
+    <br>
+        
+    {% endfor %}
     
 {% endblock content %}

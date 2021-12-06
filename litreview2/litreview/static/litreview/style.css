@@ -78,3 +78,50 @@ button:hover {
 color: #ffffff;
 cursor: pointer;
 }
+
+.ticketRecap
+{
+    display: block;
+    justify-content: center;
+    border: 2px solid;
+    width: 80%;
+}
+
+.ticketBox
+{
+    position: relative;
+    left: 12%;
+}
+.ticket
+{   
+    border: 2px solid;
+    width: 70%;
+    margin: 20px;
+}
+
+
+.ticketHeader
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.reviewButton
+{
+    margin-right: 2px;
+}
+
+.review
+{
+    border: 2px solid;
+    width: 70%;
+}
+
+.reviewHeader
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
