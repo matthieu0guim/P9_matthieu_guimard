@@ -37,6 +37,8 @@ urlpatterns = [
     path('profile_picture/', authentification.views.upload_profile_photo, name='upload-profil-photo'),
     path('blog/create', blog.views.blog_and_photo_upload, name='blog-create'),
     path('blog/<int:blog_id>', blog.views.view_blog, name="blog-view"),
+    path('blog/<int:blog_id>/edit', blog.views.edit_blog, name='edit-blog'),
+    path('photo/upload-multiple', blog.views.create_multiple_photos, name="create-multiple-photos"),
 ]
 
 if settings.DEBUG:
