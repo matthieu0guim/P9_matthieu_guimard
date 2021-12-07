@@ -1,10 +1,14 @@
 {% extends 'litreview/base.html' %} 
 {% block content %}
+    
     <p>Page création de ticket en cours de construction</p>
     <h2>Création d'un ticket</h2>
-    <form method='POST' enctype="multipart/form-data">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <button type="submit">Créer le ticket</button>
-    </form>
+    <div class="ticket">
+        <form method='POST' enctype="multipart/form-data">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit">Créer le ticket</button>
+        </form>
+    </div>
+    
 {% endblock content %}

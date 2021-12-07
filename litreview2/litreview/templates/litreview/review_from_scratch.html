@@ -1,0 +1,16 @@
+{% extends 'litreview/base.html' %} 
+{% block content %}
+    <p>Page création de critique sans demande en cours de construction</p>
+    <h2>Créer une critique</h2>
+    <form method='POST' enctype="multipart/form-data" class="form">
+        <div class="scratch">
+            {{ ticket_form.as_p }}
+        </div>
+        <div class="scratch">
+            {{ review_form.as_p }}
+        </div>
+        {% csrf_token %}
+        <button type="submit">Créer une critique</button>
+    </form>
+    
+{% endblock content %}

@@ -18,7 +18,7 @@ def sign_in_page(request):
 def flux_page(request):
     tickets = Ticket.objects.all()
     reviews = Review.objects.all()
-    flux = sorted(list(chain(tickets, reviews)), key=lambda x: x.time_created)
+    flux = sorted(list(chain(tickets, reviews)), key=lambda x: x.time_created, reverse=True)
     print(flux)
 
     return render(request, "litreview/flux.html", context={'flux': flux})
@@ -51,14 +51,32 @@ def review_after_ticket(request, ticket_id):
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
-            # review.headline = review.cleaned_data['title']
-            # review.rating = review.cleaned_data['rating']
-            # review.body = review.cleaned_data['description']
             review.user = request.user
             review.ticket = ticket
             review.save()
             return redirect('flux')
     return render(request, 'litreview/review_after_ticket.html', context={"ticket": ticket, 'form': form})
+
+@login_required
+def review_from_scratch(request):
+    ticket_form = TicketForm()
+    review_form = ReviewForm()
+    if request.method == 'POST':
+        ticket_form = TicketForm(request.POST, request.FILES)
+        review_form = ReviewForm(request.POST)
+        if all([ticket_form.is_valid(), review_form.is_valid()]):
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+            review = review_form.save(commit=False) 
+            review.user = request.user
+            review.ticket = ticket
+            review.save()
+            return redirect('flux')
+    return render(request, 'litreview/review_from_scratch.html', context={"ticket_form": ticket_form, "review_form": review_form})
+
+
+
 
 
 def review_creation(request): # will handle review modification as one with an id already attributed

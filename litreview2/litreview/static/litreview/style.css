@@ -92,13 +92,15 @@ cursor: pointer;
     position: relative;
     left: 12%;
 }
+
 .ticket
 {   
     border: 2px solid;
-    width: 70%;
-    margin: 20px;
-}
+    width: 80%;
+    height: 100%;
 
+    margin-bottom: 10px;
+}
 
 .ticketHeader
 {
@@ -124,4 +126,16 @@ cursor: pointer;
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+
+.form
+{
+    border: 2px solid;
+    width: 80%;
+}
+.scratch
+{
+    border: 2px solid;
+    width : 100%;
 }
