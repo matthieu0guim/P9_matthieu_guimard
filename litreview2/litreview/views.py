@@ -45,7 +45,6 @@ def ticket_creation(request): # will handle ticket modification as one with an i
 @login_required
 def review_after_ticket(request, ticket_id):
     ticket = Ticket.objects.get(id=ticket_id)
-    print(ticket.id)
     form = ReviewForm()
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -53,6 +52,7 @@ def review_after_ticket(request, ticket_id):
             review = form.save(commit=False)
             review.user = request.user
             review.ticket = ticket
+            print(request)
             review.save()
             return redirect('flux')
     return render(request, 'litreview/review_after_ticket.html', context={"ticket": ticket, 'form': form})

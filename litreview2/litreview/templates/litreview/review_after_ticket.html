@@ -19,9 +19,20 @@
     
     <div class="review">
         <form method='POST' enctype="multipart/form-data">
-            {{ form.as_p }}
+            <p>{{ form.headline.label }} {{ form.headline }}</p>
+            <div>
+                {{ form.rating.label }}
+                {% for x in '12345'|make_list %}
+                <input type="radio" name="rating" value="{{x}}"> {{x}}
+                {% endfor %}
+            </div>
+            {{ form.body.label}}
+            {{ form.body }} 
             {% csrf_token %}
-            <button type="submit">Créer le ticket</button>
+            <a href="{% url 'flux' %}">
+                <button type="submit">Créer le ticket</button>
+            </a>
+            
         </form>
     </div>
     

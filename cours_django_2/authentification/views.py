@@ -50,15 +50,4 @@ def upload_profile_photo(request):
             form.save()
             return redirect('home')
     return render(request, 'authentification/update_profile_picture.html', context={'form': form})
-    # instance = request.user
-    # new_photo = forms.UpdateProfilPhotoForm()
-    # if request.method == 'POST':
-    #     new_photo = UpdateProfilPhotoForm(request.POST, request.FILES)
-    #     instance.profile_photo = new_photo
-    #     photo = new_photo.save(commit=False)
-    #     photo.save()
-    #     return redirect('home')
 
-    
-    # return render(request, 'authentification/update_profile_picture.html', context={'form': new_photo})
- 
