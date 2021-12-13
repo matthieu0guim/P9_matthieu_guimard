@@ -19,8 +19,6 @@ def flux_page(request):
     tickets = Ticket.objects.all()
     reviews = Review.objects.all()
     flux = sorted(list(chain(tickets, reviews)), key=lambda x: x.time_created, reverse=True)
-    print(flux)
-
     return render(request, "litreview/flux.html", context={'flux': flux})
 
 @login_required
@@ -87,7 +85,8 @@ def review_creation(request): # will handle review modification as one with an i
 
 
 def own_posts(request):
-    return render(
-        request,
-        "litreview/own_posts.html"
-    )
+    tickets = Ticket.objects.all()
+    reviews = Review.objects.all()
+    flux = sorted(list(chain(tickets, reviews)), key=lambda x: x.time_created, reverse=True)
+    user = request.user
+    return render(request, "litreview/own_posts.html", context={'flux': flux, 'user': user})

@@ -11,14 +11,14 @@ def create_groups(apps, schema_migration):
     change_photo = Permission.objects.get(codename='change_photo')
     delete_photo = Permission.objects.get(codename='delete_photo')
     view_photo = Permission.objects.get(codename='view_photo')
-    
+
     creator_permissions = [
         add_photo,
         change_photo,
         delete_photo,
         view_photo,
     ]
-    
+
     creators = Group(name='creators')
     creators.save()
     creators.permissions.set(creator_permissions)
@@ -26,7 +26,7 @@ def create_groups(apps, schema_migration):
     subscribers = Group(name='subscribers')
     subscribers.save()
     subscribers.permissions.add(view_photo)
-    
+
     for user in User.objects.all():
         if user.role == 'CREATOR':
             creators.user_set.add(user)

@@ -4,7 +4,13 @@ from django.contrib.auth.forms import UserCreationForm
 
 from . import models
 
+User = get_user_model()
 
+class FollowUsersForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['follows']
+        
 class PhotoForm(forms.ModelForm):
     class Meta():
         model = models.Photo
