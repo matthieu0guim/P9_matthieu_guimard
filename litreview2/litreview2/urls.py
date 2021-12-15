@@ -33,6 +33,9 @@ urlpatterns = [
     path("own_posts", views.own_posts, name='posts'),
     path('review_after_ticket/<int:ticket_id>/', views.review_after_ticket, name='review-after-ticket'),
     path('review_from_scratch', views.review_from_scratch, name='review-from-scratch'),
+    path('ticket/<int:ticket_id>/edit', views.edit_ticket, name='edit-ticket'),
+    path("own_posts", views.own_posts, name="delete-ticket"),
+    path('review/<int:review_id>/edit', views.edit_review, name='edit-review'),
 ]
 
 if settings.DEBUG:

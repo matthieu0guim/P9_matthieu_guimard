@@ -133,6 +133,7 @@ cursor: pointer;
     display: inline-flex;
     margin-left: 75%;
     justify-content: right;
+    float: right;
 }
 
 .form

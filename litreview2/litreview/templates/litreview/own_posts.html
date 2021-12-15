@@ -3,20 +3,31 @@
     <p>Page posts en cours de construction</p>
     {% for item in flux %}
         {% if item.user.id == user.id %}
-            
+
             {% if item.identity == 'ticket' %}
                 <div class="ticket">
                     <div class="ticketHeader">
                         <p>{{ item.user }} a demandé une critique </p>
                         <p>{{ item.time_created }}</p>
                     </div>
-                    
+
                     <p>  {{ item.title }}</p>
-                    <p>  {{ item.description }}</p>
+                    <p>  {{ item.description }} </p>
                     <img src="{{ item.image.url }}">
                     <div class="bottomButtons">
-                        <button type="submit" class="button reviewButton">Modifier</button>
-                        <button type="submit" class="button reviewButton">Supprimer</button>
+                        <a href="{% url 'edit-ticket' item.id %}">
+                            <button type="submit" class="button reviewButton">Modifier</button>
+                        </a>
+                        
+                        <a href="{% url 'edit-ticket'  item.id %}">
+                            <button type="submit" class="button reviewButton">Supprimer</button>
+                            <!-- <form method='POST'>
+                                {{ delete_form.as_p }}
+                                {% csrf_token %}
+                                <button type="submit" class="button reviewButton">Supprimer</button>
+                            </form> -->
+                        </a>
+                        
                     </div>
                 </div>
             {% endif %}
@@ -26,23 +37,29 @@
                         <p>{{ item.user }} a publié une critique. </p>
                         <p>{{ item.time_created }}</p>
                     </div>
-                    
+
                     <h3> {{ item.headline }}</h3>
                     <p>  {{ item.rating }}</p>
+                    <p>  {{ item.body }} </p>
                     <div class="ticket">
                         <div class="ticketHeader">
                             <p>Ticket - {{ item.ticket.user }} </p>
                         </div>
-                        
+
                         <p>  {{ item.ticket.title }}</p>
                         <img src="{{ item.ticket.image.url }}">
-                        
+
                     </div>
                     <div class="bottomButtons">
-                        <button type="submit" class="button reviewButton">Modifier</button>
-                        <button type="submit" class="button reviewButton">Supprimer</button>
+                        <a href="{% url 'edit-review' item.id %}">
+                            <button type="submit" class="button reviewButton">Modifier</button>
+                        </a>
+                        <a href="{% url 'edit-review' item.id %}">
+                            <button type="submit" class="button reviewButton">Supprimer</button>
+                        </a>
+                        
                     </div>
-                    
+
                 </div>
             {% endif %}
             <br>

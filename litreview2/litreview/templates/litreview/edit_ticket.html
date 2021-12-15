@@ -1,0 +1,16 @@
+{% extends 'litreview/base.html' %} 
+{% block content %}
+    <h2>Modifier une demande de critique</h2>
+    <form method='POST'>
+        {{ edit_form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="buttons">Confirmer les modifications</button>
+    </form>
+    <h3>Supprimer la demande de critique?</h3>
+    <form method='POST'>
+        {{ delete_form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="buttons">Supprimer</button>
+    </form>
+    
+{% endblock content %}

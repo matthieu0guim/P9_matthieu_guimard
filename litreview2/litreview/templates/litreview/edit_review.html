@@ -1,0 +1,30 @@
+{% extends 'litreview/base.html' %} 
+{% block content %}
+    <h2>Modifier votre critique</h2>
+    <div class="ticketRecap">
+        <p>Vous êtes en train de poster en réponse à:</p>
+        <div class="ticket ticketBox">
+            <div class="ticketHeader">
+                <p>{{ ticket.user }} a demandé une critique </p>
+                <p>{{ ticket.time_created }}</p>
+            </div>
+            
+            <p>  {{ ticket.title }}</p>
+            <p>  {{ ticket.description }}</p>
+            <img src="{{ ticket.image.url }}">
+        </div>
+        
+    </div>
+    <form method='POST'>
+        {{ edit_form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="buttons">Envoyer</button>
+    </form>
+    <h3>Supprimer votre critique?</h3>
+    <form method='POST'>
+        {{ delete_form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="buttons">Supprimer</button>
+    </form>
+    
+{% endblock content %}

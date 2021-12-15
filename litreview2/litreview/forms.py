@@ -3,16 +3,22 @@ from django.forms import widgets
 from . import models
 
 class TicketForm(forms.ModelForm):
+    edit_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = models.Ticket
         fields = ['title', 'description', 'image']
 
+class DeleteTicketForm(forms.Form):
+    delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
 class ReviewForm(forms.ModelForm):
-    # title = forms.CharField(max_length=128,widget=widgets.TextInput, label='')
-    # descritpion = forms.CharField(max_length=8192, widget=widgets.TextInput, label='')
+    edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = models.Review
         fields = ['headline', 'rating', 'body']
+
+class DeleteReviewForm(forms.Form):
+    delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
 
 # class ItemDescription(forms.Form):
