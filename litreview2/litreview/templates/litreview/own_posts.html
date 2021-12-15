@@ -14,9 +14,10 @@
                     <p>  {{ item.title }}</p>
                     <p>  {{ item.description }}</p>
                     <img src="{{ item.image.url }}">
-                    <a href="{% url 'review-after-ticket' item.id %}">
-                        <button type="submit" class="button reviewButton">Créer une critique</button>
-                    </a>
+                    <div class="bottomButtons">
+                        <button type="submit" class="button reviewButton">Modifier</button>
+                        <button type="submit" class="button reviewButton">Supprimer</button>
+                    </div>
                 </div>
             {% endif %}
             {% if item.identity == 'review' %} 
@@ -35,7 +36,13 @@
                         
                         <p>  {{ item.ticket.title }}</p>
                         <img src="{{ item.ticket.image.url }}">
+                        
                     </div>
+                    <div class="bottomButtons">
+                        <button type="submit" class="button reviewButton">Modifier</button>
+                        <button type="submit" class="button reviewButton">Supprimer</button>
+                    </div>
+                    
                 </div>
             {% endif %}
             <br>

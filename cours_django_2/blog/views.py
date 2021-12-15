@@ -15,7 +15,6 @@ def home(request):
     return render(request, 'blog/home.html', context={'photos': photos, 'blogs': blogs})
 
 @login_required
-@permission_required('blog.add_photo', raise_exception=True)
 def photo_upload(request):
     form = forms.PhotoForm()
     if request.method == 'POST':
@@ -43,6 +42,7 @@ def blog_and_photo_upload(request):
             blog.photo = photo
             blog.uploader = request.user
             blog.save()
+            blog.contributors.add(request.user, through_defaults={'contribution': 'auteur principal'})
             return redirect('home')
     context = {
         "blog_form": blog_form,

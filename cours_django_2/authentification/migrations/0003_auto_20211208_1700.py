@@ -2,7 +2,7 @@
 
 from django.db import migrations
 
-def create_groups(apps, schema_migration):
+def create_groups(apps, schema_migration, with_create_permissions=True):
     User = apps.get_model('authentification', 'User')
     Group = apps.get_model('auth', 'Group')
     Permission = apps.get_model('auth', 'Permission')
