@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.fields import PositiveSmallIntegerField
@@ -38,11 +39,11 @@ class Review(models.Model):
 
 
 class UserFollows(models.Model):
-
+    
     class Meta():
         unique_together = ['user', 'followed_user']
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=settings.AUTH_USER_MODEL,  on_delete=models.CASCADE)
     followed_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followed_by')
 
 # Create your models here.

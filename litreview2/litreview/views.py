@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from litreview.forms import ReviewForm, TicketForm
+from litreview.forms import ReviewForm, TicketForm, FollowUsersForm
 from litreview.models import User, Ticket, Review, UserFollows
 from . import forms
 
@@ -86,7 +86,6 @@ def review_from_scratch(request):
             print(f"review:{review_form.errors}")
     return render(request, 'litreview/review_from_scratch.html', context={"ticket_form": ticket_form, "review_form": review_form})
 
-
 @login_required
 def own_posts(request):
     tickets = Ticket.objects.all()
@@ -166,3 +165,12 @@ def delete_review(request, review_id):
                 return redirect("posts")
     return render(request, 'litreview/delete_review.html', context={"review": review, "delete_form": delete_form})
 
+@login_required
+def follow_user(request):
+    form = forms.FollowUsersForm(instance=request.user)
+    if request.method == 'POST':
+        form = forms.FollowUsersForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    return render(request, 'litreview/follow_user_form.html', context={'form': form})

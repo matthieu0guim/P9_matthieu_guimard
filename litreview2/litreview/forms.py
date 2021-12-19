@@ -1,6 +1,9 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.forms import widgets
 from . import models
+
+User = get_user_model()
 
 class TicketForm(forms.ModelForm):
     edit_ticket = forms.NullBooleanField(widget=forms.HiddenInput, initial=True)
@@ -20,17 +23,10 @@ class ReviewForm(forms.ModelForm):
 class DeleteReviewForm(forms.Form):
     delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
-
-# class ItemDescription(forms.Form):
-#     title = forms.CharField(max_length=100, label="Titre")
-#     description = forms.TextInput(label='Description')
-#     image = forms.ImageField(label='Image')
-
-# class Review(forms.Form):
-#     title = forms.CharField(max_length=150, label="Titre")
-#     grade = forms.
-
-# class ReviewCrationForm(forms.Form):
+class FollowUsersForm(forms.ModelForm):
+    class Meta:
+        model = models.UserFollows
+        fields = ['followed_user']
     
 
     

@@ -27,7 +27,6 @@ urlpatterns = [
     path('register', authentication.views.signup_page, name="signup"),
     path('logout/', authentication.views.logout_user, name='logout'),
     path('flux', views.flux_page, name="flux"),
-    path('subscription', views.subscription_page, name='subscribes'),
     path('ticket_creation', views.ticket_creation, name="ticket-creation"),
     path("own_posts", views.own_posts, name='posts'),
     path('review_after_ticket/<int:ticket_id>/', views.review_after_ticket, name='review-after-ticket'),
@@ -36,6 +35,7 @@ urlpatterns = [
     path("own_posts/<int:ticket_id>/delete", views.delete_ticket, name="delete-ticket"),
     path('review/<int:review_id>/edit', views.edit_review, name='edit-review'),
     path('review/<int:review_id>/delete', views.delete_review, name='delete-review'),
+    path('follow-users', views.follow_user, name='follow-user'),
 ]
 
 if settings.DEBUG:
