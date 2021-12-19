@@ -22,9 +22,11 @@
                     <p>  {{ item.title }}</p>
                     <p>  {{ item.description }}</p>
                     <img src="{{ item.image.url }}">
-                    <a href="{% url 'review-after-ticket' item.id %}">
-                        <button type="submit" class="button reviewButton">Créer une critique</button>
-                    </a>
+                    {% if item.answered == 'False' %}
+                        <a href="{% url 'review-after-ticket' item.id %}">
+                            <button type="submit" class="button reviewButton">Créer une critique</button>
+                        </a>
+                    {% endif %}
                 </div>
             {% endif %}
             {% if item.identity == 'review' %} 

@@ -1,0 +1,37 @@
+{% extends 'litreview/base.html' %} 
+{% block content %}
+    <h2>SUPPRESSION D'UNE CRITIQUE</h2>
+    <h3>Êtes vous certain de vouloir supprimer votre critique?</h3>
+    <div class="review">
+        <div class="reviewHeader">
+            <p>{{ review.user }} a publié une critique. </p>
+            <p>{{ review.time_created }}</p>
+        </div>
+
+        <h3> {{ review.headline }}</h3>
+        <p>  {{ review.rating }}</p>
+        <p>  {{ review.body }} </p>
+        <div class="ticket">
+            <div class="ticketHeader">
+                <p>Ticket - {{ review.ticket.user }} </p>
+            </div>
+
+            <p>  {{ review.ticket.title }}</p>
+            <img src="{{ review.ticket.image.url }}">
+
+        </div>
+        <div class="deleteButtons">
+            <form method='POST'>
+                {{ delete_form.as_p }}
+                {% csrf_token %}
+                <button type="submit" class="button">Je suis certain</button>
+            </form>
+            <a href="{% url 'posts' %}">
+                <button type="submit" class="button">Annuler</button>
+            </a>
+        </div>
+
+    </div>
+    
+    
+{% endblock content %}

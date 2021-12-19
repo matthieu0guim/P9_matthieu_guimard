@@ -1,16 +1,19 @@
 {% extends 'litreview/base.html' %} 
 {% block content %}
     <h2>Modifier une demande de critique</h2>
+    <div class="ticket">
+        <div class="ticketHeader">
+            <p>{{ ticket.user }} a demandé une critique </p>
+            <p>{{ ticket.time_created }}</p>
+        </div>
+        <p>  {{ ticket.title }}</p>
+        <p>  {{ ticket.description }} </p>
+        <img src="{{ ticket.image.url }}">
+    </div>
     <form method='POST'>
         {{ edit_form.as_p }}
         {% csrf_token %}
         <button type="submit" class="buttons">Confirmer les modifications</button>
-    </form>
-    <h3>Supprimer la demande de critique?</h3>
-    <form method='POST'>
-        {{ delete_form.as_p }}
-        {% csrf_token %}
-        <button type="submit" class="buttons">Supprimer</button>
     </form>
     
 {% endblock content %}

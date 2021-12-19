@@ -19,16 +19,15 @@
     
     <div class="review">
         <form method='POST'>
-            <!-- <p>{{ form.headline.label }} {{ form.headline }}</p> -->
-            <!-- <div>
+            <p>{{ form.headline.label }} {{ form.headline }}</p>
+            <div>
                 {{ form.rating.label }}
                 {% for x in '12345'|make_list %}
                 <input type="radio" name="rating" value="{{x}}"> {{x}}
                 {% endfor %}
             </div>
             {{ form.body.label}}
-            {{ form.body }}  -->
-            {{ form.as_p }}
+            {{ form.body }}
             {% csrf_token %}
             <button type="submit">Créer la critique</button>
             

@@ -6,11 +6,23 @@
         <div class="scratch">
             {{ ticket_form.as_p }}
         </div>
-        <div class="scratch">
-            {{ review_form.as_p }}
-        </div>
-        {% csrf_token %}
-        <button type="submit">Créer une critique</button>
+    
+        <form method='POST' class="form">
+            <p>{{ review_form.headline.label }} {{ review_form.headline }}</p>
+            <div>
+                {{ review_form.rating.label }}
+                {% for x in '12345'|make_list %}
+                <input type="radio" name="rating" value="{{x}}"> {{x}}
+                {% endfor %}
+            </div>
+            {{ review_form.body.label}}
+            {{ review_form.body }}
+            {% csrf_token %}
+            <button type="submit" class="bottomButtons">Créer une critique</button>
+        </form>
     </form>
+    
+    
+    
     
 {% endblock content %}

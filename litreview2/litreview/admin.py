@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'is_superuser', 'id')
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'user')
+    list_display = ('title', 'description', 'user', 'answered')
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('user', 'headline', 'rating', 'ticket')

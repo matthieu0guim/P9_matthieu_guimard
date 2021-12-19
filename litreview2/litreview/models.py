@@ -13,6 +13,7 @@ class Ticket(models.Model):
     image = models.ImageField(null=True, blank=True, verbose_name="Image")
     time_created = models.fields.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    answered = models.fields.CharField(max_length=10, default='False')
 
     IMAGE_MAX_SIZE = (700, 700)
 

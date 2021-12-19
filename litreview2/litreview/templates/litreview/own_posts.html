@@ -10,7 +10,6 @@
                         <p>{{ item.user }} a demandé une critique </p>
                         <p>{{ item.time_created }}</p>
                     </div>
-
                     <p>  {{ item.title }}</p>
                     <p>  {{ item.description }} </p>
                     <img src="{{ item.image.url }}">
@@ -19,13 +18,8 @@
                             <button type="submit" class="button reviewButton">Modifier</button>
                         </a>
                         
-                        <a href="{% url 'edit-ticket'  item.id %}">
+                        <a href="{% url 'delete-ticket'  item.id %}">
                             <button type="submit" class="button reviewButton">Supprimer</button>
-                            <!-- <form method='POST'>
-                                {{ delete_form.as_p }}
-                                {% csrf_token %}
-                                <button type="submit" class="button reviewButton">Supprimer</button>
-                            </form> -->
                         </a>
                         
                     </div>
@@ -54,7 +48,7 @@
                         <a href="{% url 'edit-review' item.id %}">
                             <button type="submit" class="button reviewButton">Modifier</button>
                         </a>
-                        <a href="{% url 'edit-review' item.id %}">
+                        <a href="{% url 'delete-review' item.id %}">
                             <button type="submit" class="button reviewButton">Supprimer</button>
                         </a>
                         

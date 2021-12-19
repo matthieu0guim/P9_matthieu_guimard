@@ -1,30 +1,43 @@
 {% extends 'litreview/base.html' %} 
 {% block content %}
     <h2>Modifier votre critique</h2>
-    <div class="ticketRecap">
-        <p>Vous êtes en train de poster en réponse à:</p>
-        <div class="ticket ticketBox">
-            <div class="ticketHeader">
-                <p>{{ ticket.user }} a demandé une critique </p>
-                <p>{{ ticket.time_created }}</p>
+    
+        <div class="review">
+            <div class="reviewHeader">
+                <p>{{ review.user }} a publié une critique. </p>
+                <p>{{ review.time_created }}</p>
             </div>
-            
-            <p>  {{ ticket.title }}</p>
-            <p>  {{ ticket.description }}</p>
-            <img src="{{ ticket.image.url }}">
+
+            <h3> {{ review.headline }}</h3>
+            <p>  {{ review.rating }}</p>
+            <p>  {{ review.body }} </p>
+            <div class="ticket">
+                <div class="ticketHeader">
+                    <p>Ticket - {{ review.ticket.user }} </p>
+                </div>
+
+                <p>  {{ review.ticket.title }} </p>
+                <img src="{{ review.ticket.image.url }}">
+
+            </div>
+                
+            </div>
+
         </div>
-        
-    </div>
-    <form method='POST'>
-        {{ edit_form.as_p }}
+    <form method='POST' class="form">
+        <!-- obligatoire car formulaire personnalisé -->
+        <input type="hidden" name="edit_review" value="True" id="id_edit_review"> 
+        <p>{{ edit_form.headline.label }} {{ edit_form.headline }}</p>
+        <div>
+            {{ edit_form.rating.label }}
+            {% for x in '12345'|make_list %}
+            <input type="radio" name="rating" value="{{x}}"> {{x}}
+            {% endfor %}
+        </div>
+        {{ edit_form.body.label }}
+        {{ edit_form.body }}
         {% csrf_token %}
-        <button type="submit" class="buttons">Envoyer</button>
-    </form>
-    <h3>Supprimer votre critique?</h3>
-    <form method='POST'>
-        {{ delete_form.as_p }}
-        {% csrf_token %}
-        <button type="submit" class="buttons">Supprimer</button>
+        <button type="submit" class="buttons">Confirmer les modifications</button>
     </form>
     
 {% endblock content %}
