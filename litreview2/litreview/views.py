@@ -168,9 +168,12 @@ def delete_review(request, review_id):
 @login_required
 def follow_user(request):
     form = forms.FollowUsersForm(instance=request.user)
+    follows = UserFollows.objects.filter(user__username=request.user.username).distinct()
+    print(follows)
+    followers = UserFollows.objects.filter(followed_user__id=request.user.id)
     if request.method == 'POST':
         form = forms.FollowUsersForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('home')
-    return render(request, 'litreview/follow_user_form.html', context={'form': form})
+            return redirect('flux')
+    return render(request, 'litreview/follow_user_form.html', context={'form': form, 'follows': follows, 'followers': followers})
