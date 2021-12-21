@@ -34,3 +34,21 @@ Votre profil est maintenant superuser et vous pouvez accéder à l'admin en rajo
 
 
 >http://127.0.0.1:8000/admin
+
+### Créer votre profil superuser directement en ligne de commande
+
+Une fois que l'environnement virtuel a été lancé il est possible d'utiliser une fonctionnalité du framework django pour créer directement votre profil super unser en ligne de commande.
+
+> python manage.py createsuper
+> Nom d'utilisateur:
+> Adresse électronique:
+> Password:
+> Password (again):
+>
+
+Lorsque vous rentrez votre mot de passe, celui-ci ne s'affiche pas à l'écran, c'est tout à fait normal. Attention aux typos!!!
+
+Votre profil est maintenant superuser et vous pouvez accéder à l'admin en rajoutant /admin à la fin de l'url fourni lors du lancement de votre serveur en local.
+
+
+>http://127.0.0.1:8000/admin
