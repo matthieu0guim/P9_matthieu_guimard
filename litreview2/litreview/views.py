@@ -169,11 +169,19 @@ def delete_review(request, review_id):
 def follow_user(request):
     form = forms.FollowUsersForm(instance=request.user)
     follows = UserFollows.objects.filter(user__username=request.user.username).distinct()
-    print(follows)
+    # print(follows)
     followers = UserFollows.objects.filter(followed_user__id=request.user.id)
     if request.method == 'POST':
+        print(f"form:{form}")
+        print(f"table0:{UserFollows.objects.all()}")
         form = forms.FollowUsersForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
-            return redirect('flux')
+            form.cleaned_data['user'] = request.user
+            print(form)
+            print(f"données:{form.cleaned_data}")
+            relation = UserFollows()
+            relation.user = request.user
+            relation.followed_user = form.cleaned_data['followed_user']
+            relation.save()
+            print(UserFollows.objects.all())
     return render(request, 'litreview/follow_user_form.html', context={'form': form, 'follows': follows, 'followers': followers})
