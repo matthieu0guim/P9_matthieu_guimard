@@ -10,8 +10,10 @@
     {% for follow in follows %}
     <li>
         {{ follow.followed_user }}
+        <a href="{% url 'end-follow' follow.id %}">
+            <button type="submit">Se désabonner</button>
+        </a>
     </li>
-     
 </br>
     {% endfor %}
     <h2>Abonnés</h2>

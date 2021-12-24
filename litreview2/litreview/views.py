@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from litreview.forms import ReviewForm, TicketForm, FollowUsersForm
+from litreview.forms import DeleteFollowForm, ReviewForm, TicketForm, FollowUsersForm
 from litreview.models import User, Ticket, Review, UserFollows
 from . import forms
 
@@ -17,17 +17,17 @@ def sign_in_page(request):
 
 @login_required
 def flux_page(request):
-    tickets = Ticket.objects.all()
+    # tickets = Ticket.objects.all()
     reviews = Review.objects.all()
+    subscribing = [following.followed_user.id for following in UserFollows.objects.filter(user__id=request.user.id)]
+    subscribing.append(request.user.id)
+    tickets = Ticket.objects.filter(user_id__in=subscribing)
+    # reviews = Review.objects.filter(user_id__in=subscribing)
+    # reviews.add(Review.objects.filter(ticket__user_id=request.user.id))
     flux = sorted(list(chain(tickets, reviews)), key=lambda x: x.time_created, reverse=True)
-    return render(request, "litreview/flux.html", context={'flux': flux})
-
-@login_required
-def subscription_page(request):
-    return render(
-        request,
-        "litreview/subscription.html"
-    )
+    
+    print(f"personnes suivies:{subscribing}")
+    return render(request, "litreview/flux.html", context={'flux': flux, 'subscribing': subscribing})
 
 @login_required
 def ticket_creation(request): # will handle ticket modification as one with an id already attributed
@@ -169,7 +169,6 @@ def delete_review(request, review_id):
 def follow_user(request):
     form = forms.FollowUsersForm(instance=request.user)
     follows = UserFollows.objects.filter(user__username=request.user.username).distinct()
-    # print(follows)
     followers = UserFollows.objects.filter(followed_user__id=request.user.id)
     if request.method == 'POST':
         print(f"form:{form}")
@@ -184,4 +183,18 @@ def follow_user(request):
             relation.followed_user = form.cleaned_data['followed_user']
             relation.save()
             print(UserFollows.objects.all())
+            return redirect('flux')
     return render(request, 'litreview/follow_user_form.html', context={'form': form, 'follows': follows, 'followers': followers})
+
+@login_required
+def end_follow(request, relation_id):
+    relation = UserFollows.objects.get(id=relation_id)
+    delete_form = forms.DeleteFollowForm()
+    if request.method == 'POST':
+        if 'delete_follow' in request.POST:
+            delete_form = DeleteFollowForm(request.POST)
+            if delete_form.is_valid():
+                relation.delete()
+                return redirect("follow-user")
+    return render(request, 'litreview/unfollow.html', context={'delete_form': delete_form, 'relation': relation})
+

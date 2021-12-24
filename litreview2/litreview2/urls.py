@@ -36,6 +36,7 @@ urlpatterns = [
     path('review/<int:review_id>/edit', views.edit_review, name='edit-review'),
     path('review/<int:review_id>/delete', views.delete_review, name='delete-review'),
     path('follow-users', views.follow_user, name='follow-user'),
+    path('unfollow/<int:relation_id>', views.end_follow, name='end-follow'),
 ]
 
 if settings.DEBUG:

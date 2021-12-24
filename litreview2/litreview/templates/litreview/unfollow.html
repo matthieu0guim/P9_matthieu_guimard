@@ -1,0 +1,11 @@
+{% extends 'litreview/base.html' %}
+{% block content %} 
+    <h2>Voulez-vous arréter de suivre cet utilisateur?</h2>
+    <h3>{{ relation.followed_user }}</h3>
+    <form method="POST">
+        {{ delete_form.as_p }}
+        {% csrf_token %} 
+        <button type="submit">Confirmer</button>
+    </form>
+    
+{% endblock content %} 
