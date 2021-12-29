@@ -29,7 +29,6 @@ urlpatterns = [
     path('password_changed', PasswordChangeDoneView.as_view(
         template_name='blog/home.html'),
         name='password_change_done'),
-    # path('logout/', authentification.views.logout_user, name='logout'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register', authentification.views.signup_page, name="signup"),
     path('blog/', blog.views.home, name="home"),

@@ -1,8 +1,11 @@
 from django import forms
+from django.db.models import Q
 from django.forms.formsets import formset_factory
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.forms import formset_factory
+
+from itertools import chain
 
 from . import forms
 from . import models
@@ -10,9 +13,15 @@ from . import models
 
 @login_required
 def home(request):
-    photos = models.Photo.objects.all()
-    blogs = models.Blog.objects.all()
-    return render(request, 'blog/home.html', context={'photos': photos, 'blogs': blogs})
+    blogs = models.Blog.objects.filter(Q(contributors__in=request.user.follows.all()) | Q(starred=True))
+
+    photos = models.Photo.objects.filter(uploader__in=request.user.follows.all()).exclude(blog__in=blogs)
+
+    blogs_and_photos = sorted(chain(blogs, photos), key=lambda instance: instance.date_created, reverse=True)
+    print(f"all:{blogs_and_photos}")
+    for item in blogs_and_photos:
+        print(f"item:{item.__dict__} \n")
+    return render(request, 'blog/home.html', context={'blogs_and_photos': blogs_and_photos})
 
 @login_required
 def photo_upload(request):
@@ -42,7 +51,7 @@ def blog_and_photo_upload(request):
             blog.photo = photo
             blog.uploader = request.user
             blog.save()
-            blog.contributors.add(request.user, through_defaults={'contribution': 'auteur principal'})
+            blog.contributors.add(request.user, through_defaults={'contributions': 'auteur principal'})
             return redirect('home')
     context = {
         "blog_form": blog_form,
